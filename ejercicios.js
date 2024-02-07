@@ -43,24 +43,30 @@ function getOddNumber(upTo) {
  * */
 
 /*
-* Consideraciones: suponemos que un video puede tener solo 1 autor y varios colaboradores y 1 autor puede tener varios videos.
+* Consideraciones: 
+*   - suponemos que un video puede tener solo 1 autor y varios colaboradores y 1 autor puede tener varios videos.
+*   - La tabla de reviews se considero como califición de un usuario relacionado a un comentario sobre un video.
+*
+* Aclaraciones: 
+*   - string? : los signos de interrogación al final del tipo de dato, se refieren a que puede ser nulo en caso necesario.
+*   - PK : Primary key
+*   - FK : Foreign key
+*   - unique: restricción unica, no pueden existir datos con el mismo registro
 */
 
 // Videos
 //      videoID         string  (PK)
 //      title           string
-//      description     string?  (200)
+//      description     string? (200)
 //      image_url       string?
 //      trailer_url     string?
 //      createdAt       Date 
 //      authorID        string  (FK)
 
-
 // rel_CollaboratorsInVideo
-//      CollaboratorsInVideoID string (PK)
-//      videoID         string 
-//      collaboratorID  string
-
+//      CollaboratorsInVideoID  string (PK)
+//      videoID                 string 
+//      collaboratorID          string
 
 // Authors
 //      authorID    string  (PK)
@@ -75,13 +81,17 @@ function getOddNumber(upTo) {
 // Comments
 //      commentID   string (PK)
 //      title       string
-//      comment     string(200)
+//      comment     string (200)
 //      createdAt   date
 //      updatedAt   date?
 //      userID      string (FK)
-//      videoID     string (FK)
 
-// Reviews              (lo tome como stars o calificion de un usuario relacionado a un comentario sobre una peli)
+// rel_CommentsInVideo
+//      CommentsInVideoID  string (PK)
+//      videoID            string 
+//      commentID          string
+
+// Reviews             
 //      reviewID    string (PK)
 //      commentID   string (FK)
 //      rating      int
@@ -94,18 +104,18 @@ function getOddNumber(upTo) {
 //      username    string
 //      email       string  (unique)
 //      createdAt   Date
-//      deletedAt   Date?       (en caso de ser nulo el usuario seguiria registrado pero inhabilitado)
-
+//      deletedAt   Date?       (en caso de ser no nulo el usuario seguiria registrado pero inhabilitado)
 
 // Passwords
 //      passwordID      string (PK)
 //      userID          string (FK)
 //      hashedPassword  string
 //      createdAt       Date
-//      deletedAt       Date?
+//      deletedAt       Date?   (en caso de ser no nulo la contraseña estara inhabilitada, el usuario tendra en uso la contraseña con el valor deletedAt null)
 
 /*
-* Posibles alternativas: se puede optar por no utilizar las tablas de autores y colaboradores e integrar una tabla UserType para determinar el rol del 
+* Posibles alternativas/mejoras: se puede optar por no utilizar las tablas de autores y colaboradores 
+* e integrar una tabla UserType para determinar el rol (author, collaborator, admin, user) del 
 * usuario en el sistema segun la logica de negocio necesaria.
 */
 
@@ -194,8 +204,8 @@ Git:
     Tipos adicionales no son mandados por la especificación de Commits Convencionales, y no tienen efecto implícito en el Versionado Semántico (a menos que incluyan un BREAKING CHANGE). Un ámbito puede ser proporcionado al tipo de un commit, para proporcionar información contextual adicional y se contiene dentro de paréntesis, por ejemplo, feat(parser): añadir capacidad para analizar arreglos.
 
 General:
-Evitar abreviaturas a menos que sean ampliamente conocidas.
-Los nombres deben ser autoexplicativos, evitando comentarios innecesarios.
-Estas políticas deben ser adaptadas según las necesidades específicas del equipo y el proyecto, y estar documentadas en un lugar accesible para todos los miembros del equipo
+    Evitar abreviaturas a menos que sean ampliamente conocidas.
+    Los nombres deben ser autoexplicativos, evitando comentarios innecesarios.
+    Estas políticas deben ser adaptadas según las necesidades específicas del equipo y el proyecto, y estar documentadas en un lugar accesible para todos los miembros del equipo
 
 */
